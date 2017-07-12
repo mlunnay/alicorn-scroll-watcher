@@ -1,0 +1,30 @@
+{
+  "name": "alicorn-scroll-watcher",
+  "description": "A web component requestAnimationFrame based scroll watcher",
+  "main": "alicorn-scroll-watcher.html",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "webcomponents",
+    "scroll",
+    "watcher",
+    "monitor"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2",
+    "web-component-tester": "^6",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0"
+  }
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>alicorn-scroll-watcher demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../alicorn-scroll-watcher.html">
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles"></style>
+  </custom-style>
+  <style>
+    h3 {
+      text-align: center;
+    }
+
+    #container {
+      position: relative;
+      height: 400vh;
+    }
+
+    alicorn-scroll-watcher {
+      display: block;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+    }
+
+    alicorn-scroll-watcher.one {
+      top: 100px;
+      margin-left: 100px;
+      background-color: gray;
+    }
+
+    alicorn-scroll-watcher.two {
+      top: 100vh;
+      margin-left: 200px;
+      background-color: red;
+    }
+
+    alicorn-scroll-watcher.three {
+      top: 200vh;
+      margin-left: 300px;
+      background-color: blue;
+    }
+
+    alicorn-scroll-watcher.locked {
+      position: fixed;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>alicorn-scroll-watcher locking demo</h3>
+  <div class="vertical-section-container centered">
+    <demo-snippet>
+      <template>
+        <div id="container">
+          <alicorn-scroll-watcher class="one" id="watcher1" lock>
+            One!
+          </alicorn-scroll-watcher>
+          <alicorn-scroll-watcher class="two" id="watcher2" lock>
+            Two!
+          </alicorn-scroll-watcher>
+          <alicorn-scroll-watcher class="three" id="watcher3" lock>
+            Three!
+          </alicorn-scroll-watcher>
+        </div>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <script>
+    for(var id of ['watcher1', 'watcher2', 'watcher3']) {
+      var watcher = document.getElementById(id);
+      watcher.classList.toggle('locked', watcher.isAboveViewport);
+      watcher.addEventListener('viewport-state-changed', e => {
+        e.target.classList.toggle('locked', e.target.isAboveViewport);
+      });
+    }
+  </script>
+</body>
+
+</html>

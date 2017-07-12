@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>alicorn-scroll-watcher demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../alicorn-scroll-watcher.html">
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles"></style>
+  </custom-style>
+  <style>
+    header {
+      height: 100vh;
+      width: 100%;
+      text-align: center;
+    }
+
+    header span div svg {
+      fill: #ff0000;
+    }
+
+    #scroll-watched {
+      opacity: 1;
+      transform: translate(0);
+      transition-property: opacity, transform;
+      transition-duration: 1s;
+    }
+
+    #scroll-watched.hidden {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+
+    #scroll-watched-right {
+      opacity: 1;
+      text-align: right;
+      transform: translate(0);
+      transition-property: opacity, transform;
+      transition-duration: 1s;
+    }
+
+    #scroll-watched-right.hidden {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    .demo-container {
+      height: 25vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <demo-snippet>
+      <template>
+
+        <header>
+          <h3>Basic alicorn-scroll-watcher demo</h3>
+          <span id="header-scroll">
+              Scroll down
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 24 24" width="48"><path d="M7.4 7.8L12 12.4l4.6-4.6L18 9.3l-6 6-6-6z"/><path d="M0-0.7h24v24H0z" fill="none"/></svg>
+              </div>
+            </span>
+        </header>
+        <div class="demo-container">
+          <alicorn-scroll-watcher>
+            <div id="scroll-watched" class="hidden">
+              I will appear on scroll.
+            </div>
+          </alicorn-scroll-watcher>
+        </div>
+        <div class="demo-container">
+          <alicorn-scroll-watcher>
+            <div id="scroll-watched-right" class="hidden">
+              I will also appear on scroll.
+            </div>
+          </alicorn-scroll-watcher>
+        </div>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <script>
+    document.getElementById('header-scroll').addEventListener('click', () => window.scrollTo(0, window.innerHeight));
+
+    document.getElementsByTagName('alicorn-scroll-watcher')[0].addEventListener('enter-viewport', () => {
+      document.getElementById('scroll-watched').classList.remove('hidden');
+    });
+    document.getElementsByTagName('alicorn-scroll-watcher')[0].addEventListener('exit-viewport', () => {
+      document.getElementById('scroll-watched').classList.add('hidden');
+    });
+    document.getElementsByTagName('alicorn-scroll-watcher')[1].addEventListener('enter-viewport', () => {
+      document.getElementById('scroll-watched-right').classList.remove('hidden');
+    });
+    document.getElementsByTagName('alicorn-scroll-watcher')[1].addEventListener('exit-viewport', () => {
+      document.getElementById('scroll-watched-right').classList.add('hidden');
+    });
+  </script>
+</body>
+
+</html>

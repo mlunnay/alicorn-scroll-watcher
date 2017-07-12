@@ -1,0 +1,27 @@
+<!--
+  alicorn-scroll-watcher
+  A web component requestAnimationFrame based scroll watcher
+
+  @demo demo/simple.html
+  @demo demo/locked.html
+  -->
+
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./alicorn-scroll-watcher-mixin.html">
+
+<template id="alicorn-scroll-watcher">
+  <style>
+    :host {
+    display: block;
+  }
+  </style>
+  <slot></slot>
+</template>
+
+<script>
+  class AlicornScrollWatcher extends AlicornScrollWatcherMixin(Polymer.Element) {
+    static get is() { return 'alicorn-scroll-watcher'; }
+  }
+
+  customElements.define(AlicornScrollWatcher.is, AlicornScrollWatcher);
+</script>

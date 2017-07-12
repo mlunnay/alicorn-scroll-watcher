@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>alicorn-scroll-watcher test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../alicorn-scroll-watcher.html">
+  <style>
+    #temporaryScrollingRegion1, #temporaryScrollingRegion2  {
+      overflow: auto;
+      width: 100px;
+      height: 100px;
+    }
+
+    .spacer {
+      height: 400px;
+    }
+  </style>
+</head>
+
+<body>
+  <test-fixture id="BasicTestFixture">
+    <template>
+      <div id="temporaryScrollingRegion1">
+        <alicorn-scroll-watcher></alicorn-scroll-watcher>
+      </div>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="RegionTestFixture">
+    <template>
+      <div id="temporaryScrollingRegion2">
+        <div class="spacer"></div>
+        <alicorn-scroll-watcher></alicorn-scroll-watcher>
+      </div>
+    </template>
+  </test-fixture>
+  </div>
+
+  <script>
+    suite('alicorn-scroll-watcher', function () {
+      var scrollingRegion, xScroll;
+
+      setup(function () {
+        scrollingRegion = fixture('BasicTestFixture');
+        scrollWatcher = scrollingRegion.querySelector('alicorn-scroll-watcher');
+      });
+
+      test('instantiating the element with default properties works', function () {
+        assert.equal(scrollWatcher.tagName.toLowerCase(), 'alicorn-scroll-watcher');
+      });
+      test('enter-viewport fires', function (done) {
+        flush(() => {
+          scrollWatcher.addEventListener('enter-viewport', (e) => {
+            assert.equal(e.target, scrollWatcher);
+          })
+          window.scrollTo(0, 500);
+          window.scrollTo(0, 0);
+          setTimeout(() => done(), 100);
+        });
+      });
+      test('exit-viewport fires', function (done) {
+        flush(() => {
+          scrollWatcher.addEventListener('exit-viewport', (e) => {
+            assert.equal(e.target, scrollWatcher);
+          })
+          window.scrollTo(0, 500);
+          setTimeout(() => done(), 100);
+        });
+      });
+      test('partially-exit-viewport fires', function (done) {
+        flush(() => {
+          scrollWatcher.addEventListener('partially-exit-viewport', (e) => {
+            assert.equal(e.target, scrollWatcher);
+          })
+          window.scrollTo(0, 500);
+          setTimeout(() => done(), 100);
+        });
+      });
+      test('fully-enter-viewport fires', function (done) {
+        flush(() => {
+          scrollWatcher.addEventListener('fully-enter-viewport', (e) => {
+            assert.equal(e.target, scrollWatcher);
+          })
+          window.scrollTo(0, 500);
+          window.scrollTo(0, 0);
+          setTimeout(() => done(), 100);
+        });
+      });
+      test('viewport-state-changed fires', function (done) {
+        flush(() => {
+          scrollWatcher.addEventListener('viewport-state-changed', (e) => {
+            assert.equal(e.target, scrollWatcher);
+          })
+          window.scrollTo(0, 500);
+          window.scrollTo(0, 0);
+          setTimeout(() => done(), 100);
+        });
+      });
+      test('_scrollHandler is called', function (done) {
+        flush(() => {
+          scrollWatcher._scrollHandler = sinon.spy();
+          window.scrollTo(0, 500);
+          setTimeout(() => {
+            assert.isTrue(scrollWatcher._scrollHandler.called);
+            done();
+          }, 100);
+        });
+      });
+      test('scroll-target', function (done) {
+        scrollingRegion = fixture('RegionTestFixture');
+        scrollWatcher = scrollingRegion.querySelector('alicorn-scroll-watcher');
+        flush(() => {
+          scrollWatcher.scrollTarget = 'temporaryScrollingRegion2';
+          assert.equal(scrollWatcher.scrollTarget, scrollingRegion);
+          scrollWatcher._scrollHandler = sinon.spy();
+          scrollingRegion.scrollTop = 500;
+          setTimeout(() => {
+            assert.isTrue(scrollWatcher._scrollHandler.called);
+            done();
+          }, 100);
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
