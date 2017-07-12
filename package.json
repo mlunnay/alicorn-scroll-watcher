@@ -2,7 +2,7 @@
   "name": "alicorn-scroll-watcher",
   "description": "A web component requestAnimationFrame based scroll watcher",
   "main": "alicorn-scroll-watcher.html",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "keywords": [
     "web-components",
