@@ -64,4 +64,4 @@ A mixin class AlicornScrollWatcherMixin can be extended by custom elements. The 
 v1.0.0 Initial version
 
 ## License
-[MIT](https://raw.githubusercontent.com/mlunnay/alicron-scroll-watcher/source/LICENSE.txt) License © Michael Lunnay
+[MIT](https://cdn.rawgit.com/mlunnay/alicorn-scroll-watcher/9cc23971/LICENSE.txt) License © Michael Lunnay

@@ -206,7 +206,7 @@
 
       _updateScroll(viewport) {
         var boundingRect = this.lock ? this.__lockedRect : this.getBoundingClientRect();
-        var targetTop = this.scrollTarget === window.document.documentElement ? window.pageYOffset : this.scrollTarget.offsetTop;
+        var targetTop = this.lock ? 0 : this.scrollTarget === window.document.documentElement ? window.pageYOffset : this.scrollTarget.offsetTop;
         var top = boundingRect.top + targetTop - this.__offsetTop;
         var bottom = boundingRect.bottom + targetTop + this.__offsetBottom;
         this.isAboveViewport = top < viewport.top;
