@@ -17,7 +17,8 @@
   "scripts": {
     "install": "polymer install",
     "start": "polymer serve",
-    "test": "polymer test"
+    "test": "polymer test",
+    "version": "node scripts/update-bower-version.js && git add bower.json"
   },
   "devDependencies": {
     "polymer-cli": "^1.0.0"
